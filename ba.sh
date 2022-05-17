@@ -1,5 +1,10 @@
 #!/bin/bash
 
- echo `git config --global user.name DevanaskhanOps`
- echo `git config --global user.email anaskhansqa@gmail.com`
- echo `git diff --staged --quiet || git commit -m 'ssd' `
+MESSAGE=$(git log -1 HEAD --pretty=format:%s)
+if [ "$MESSAGE"!="release to isi" ]; then
+    act=$(git diff --quiet && git diff --staged --quiet)
+    echo "$act"
+else
+    rel=$(git commit -am 'release to isi')
+    echo "$rel"
+fi
